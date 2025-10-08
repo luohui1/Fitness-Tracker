@@ -1,0 +1,21 @@
+{
+  "sports": {
+    "squat": {
+      "maintaining": 100,
+      "relaxing": 160,
+      "side_mode": "avg"
+    },
+    "pushup": {
+      "maintaining": 150,
+      "relaxing": 120,
+      "side_mode": "avg"
+    },
+    "situp": {
+      "maintaining": 120,
+      "relaxing": 140,
+      "side_mode": "avg"
+    }
+  },
+  "min_reach_frames": 3,
+  "show_angle": false
+}

@@ -7,7 +7,7 @@ import json
 import datetime
 import argparse
 from ultralytics import YOLO
-from ultralytics.yolo.utils.plotting import Annotator, Colors
+from ultralytics.utils.plotting import Annotator, Colors
 from copy import deepcopy
 from for_detect.Inference import LSTM
 
@@ -193,7 +193,7 @@ def parse_args():
     parser.add_argument('--model', default='yolov8s-pose.pt', type=str, help='Path to model weight')
     parser.add_argument('--detector_model', default='./for_detect/checkpoint/', type=str, help='Path to detect model checkpoint')
     parser.add_argument('--sport', default=['squat', 'situp', 'pushup'], type=str, help='Currently supported "situp", "pushup" and "squat"')
-    parser.add_argument('--input', default=r'C:\Users\90703\Desktop\produced.mp4', type=str, help='Path to input video')
+    parser.add_argument('--input', default='0', type=str, help='Path to input video or camera index')
     parser.add_argument('--save_dir', default=None, type=str, help='path to save output')
     parser.add_argument('--show', default=True, type=bool, help='show the result')
     args = parser.parse_args()

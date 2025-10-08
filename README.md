@@ -1,128 +1,172 @@
-# Exercise Counter with YOLOv8 on NVIDIA Jetson
-![ezgif com-optimize (1)](https://github.com/yuyoujiang/exercise-counting-with-YOLOv8/assets/76863444/d592ff9b-6bc2-4017-8731-cf408052f0dd)
+# 健身检测系统 Fitness Tracker (YOLOv8)
 
+![演示](https://github.com/yuyoujiang/exercise-counting-with-YOLOv8/assets/76863444/d592ff9b-6bc2-4017-8731-cf408052f0dd)
 
-This is a pose estimation demo application for exercise counting with YOLOv8 using [YOLOv8-Pose](https://docs.ultralytics.com/tasks/pose) model. 
-Click here to see more [vision AI demo and project](https://www.seeedstudio.com/edge-ai/computer-vision).
+基于YOLOv8-Pose的实时运动计数应用，支持深蹲、俯卧撑、仰卧起坐等运动类型的自动识别和计数。
 
-This has been tested and deployed on a [reComputer Jetson J4011](https://www.seeedstudio.com/reComputer-J4011-p-5585.html?queryID=7e0c2522ee08fd79748dfc07645fdd96&objectID=5585&indexName=bazaar_retailer_products). However, you can use any NVIDIA Jetson device to deploy this demo.
+## ✨ 功能特点
 
-Current only 3 different exercise types can be counted:
+- 🖥️ **全新GUI桌面程序** - 图形界面操作，简单直观
+- 🎯 实时姿态检测与运动计数
+- 🏋️ 支持多种运动类型（深蹲/俯卧撑/仰卧起坐）
+- 🤖 智能自动识别运动类型
+- 🎥 支持摄像头和视频文件输入
+- 🚀 可选GPU加速支持
+- 💾 实时预览和结果保存功能
 
-- Squats
-- Pushups
-- Situps
+## 🚀 快速开始
 
-However, I will keep updating this repo to add more exercises and also add the function of detecting the exercise type.
+### 方式一：GUI桌面程序（推荐）⭐
 
-## Introduction
-
-The YOLOv8-Pose model can detect 17 key points in the human body, then select discriminative key-points based on the characteristics of the exercise. 
-Calculate the angle between key-point lines, when the angle reaches a certain threshold, the target can be considered to have completed a certain action.
-By utilizing the above-mentioned mechanism, it is possible to achieve an interesting *Exercise Counter* Application.
-
-## Installation
-
-- **Step 1:** Flash JetPack OS to reComputer Jetson device [(Refer to here)](https://wiki.seeedstudio.com/reComputer_J4012_Flash_Jetpack/).
-
-- **Step 2:** Access the terminal of Jetson device, install pip and upgrade it
-
-```sh
-sudo apt update
-sudo apt install -y python3-pip
-pip3 install --upgrade pip
+1. **环境检查**
+```bash
+python check_system.py
 ```
 
-- **Step 3:** Clone the following repo
-
-```sh
-git clone https://github.com/ultralytics/ultralytics.git
+2. **自动安装**
+```bash
+setup.bat          # Windows
+./setup.sh         # Linux/macOS
 ```
 
-- **Step 4:** Open requirements.txt
+3. **启动桌面程序**
+```bash
+# 激活虚拟环境
+venv\Scripts\activate          # Windows
+source venv/bin/activate       # Linux/macOS
 
-```sh
-cd ultralytics
-vi requirements.txt
+# 运行GUI桌面程序
+python app.py
 ```
 
-- **Step 5:** Edit the following lines. Here you need to press i first to enter editing mode. Press ESC, then type :wq to save and quit
+### 方式二：命令行程序
 
-```sh
-# torch>=1.7.0
-# torchvision>=0.8.1
+```bash
+# 使用摄像头进行深蹲计数
+python demo.py --input 0 --sport squat
+
+# 自动识别运动类型（完整版）
+python demo_pro.py --input 0
 ```
 
-**Note:** torch and torchvision are excluded for now because they will be installed later.
+## 📖 使用示例
 
-- **Step 6:** Install the necessary packages
+### 基础版（单一运动类型）
+```bash
+# 深蹲计数
+python demo.py --input 0 --sport squat
 
-```sh
-pip3 install -e .
+# 俯卧撑计数（使用视频）
+python demo.py --input video.mp4 --sport pushup
+
+# 仰卧起坐计数并保存结果
+python demo.py --input 0 --sport sit-up --save_dir ./output
 ```
 
-- **Step 7:** If there is an error in numpy version, install the required version of numpy
+### 完整版（自动识别运动类型）
+```bash
+# 摄像头自动识别
+python demo_pro.py --input 0
 
-```sh
-pip3 install numpy==1.20.3
+# 处理视频文件
+python demo_pro.py --input video.mp4 --save_dir ./results
 ```
 
-- **Step 8:** Install PyTorch and Torchvision [(Refer to here)](https://wiki.seeedstudio.com/YOLOv8-DeepStream-TRT-Jetson/#install-pytorch-and-torchvision).
+## 📊 支持的运动类型
 
-- **Step 9:** Run the following command to make sure yolo is installed properly
+| 运动类型 | 参数名 | 说明 |
+|---------|--------|------|
+| 深蹲 | `squat` | Squats |
+| 俯卧撑 | `pushup` | Push-ups |
+| 仰卧起坐 | `sit-up` | Sit-ups |
 
-```sh
-yolo detect predict model=yolov8n.pt source='https://ultralytics.com/images/bus.jpg' 
+## 💻 系统要求
+
+- Python 3.8+
+- 8GB RAM（推荐16GB）
+- 5GB 磁盘空间
+- NVIDIA GPU（可选，用于加速）
+
+## 📚 文档
+
+- **快速上手**: 参考上方"快速开始"部分
+- **详细指南**: 查看 [Guidance.md](Guidance.md)
+- **自动化脚本**: `setup.bat` / `setup.sh` / `check_system.py`
+
+## 🔧 主要参数
+
+### demo.py
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--input` | 0 | 输入源（0=摄像头，或视频路径） |
+| `--sport` | squat | 运动类型 |
+| `--model` | yolov8s-pose.pt | 模型路径 |
+| `--save_dir` | None | 结果保存路径 |
+
+### demo_pro.py
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--input` | 0 | 输入源 |
+| `--model` | yolov8s-pose.pt | YOLOv8模型路径 |
+| `--detector_model` | ./for_detect/checkpoint/ | 检测模型路径 |
+| `--save_dir` | None | 结果保存路径 |
+
+## 🛠️ 项目结构
+
+```
+├── app.py                    # 🆕 GUI桌面程序（推荐）
+├── demo.py                   # 命令行基础版
+├── demo_pro.py               # 命令行完整版
+├── check_system.py           # 系统检查脚本
+├── setup.bat                 # Windows安装脚本
+├── setup.sh                  # Linux/macOS安装脚本
+├── requirements.txt          # 依赖列表
+├── Guidance.md               # 详细指导文档
+└── for_detect/               # 运动检测模块
+    ├── train.py              # 训练脚本
+    ├── Inference.py          # 推理脚本
+    └── checkpoint/           # 模型文件
 ```
 
-- **Step 10:** Clone exercise counter demo
+## ❓ 常见问题
 
-```sh
-git clone https://github.com/yuyoujiang/exercise-counting-with-YOLOv8.git
+**Q: 摄像头无法打开？**  
+A: 尝试修改 `--input 1` 或 `--input 2`，检查摄像头是否被占用
+
+**Q: 程序运行很慢？**  
+A: 安装CUDA版PyTorch，或使用更小的模型 `yolov8n-pose.pt`
+
+**Q: CUDA不可用？**  
+A: 安装对应版本的PyTorch：
+```bash
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
 ```
 
-## Prepare The Model File
+更多问题请查看 [Guidance.md](Guidance.md)
 
-YOLOv8-pose pretrained pose models are PyTorch models and you can directly use them for inferencing on the Jetson device. However, to have a better speed, you can convert the PyTorch models to TensorRT optimized models by following below instructions.
+## 📄 许可证
 
-- **Step 1:** Download model weights in PyTorch format [(Refer to here)](https://docs.ultralytics.com/tasks/pose/#models).
+本项目采用 MIT 许可证
 
-- **Step 2:** Execute the following command to convert this PyTorch model into a TensorRT model 
+## 🙏 参考项目
 
-```sh
-# TensorRT FP32 export
-yolo export model=yolov8s-pose.pt format=engine device=0
+- [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics)
+- [Seeed Studio Wiki](https://wiki.seeedstudio.com/YOLOv8-DeepStream-TRT-Jetson/)
 
-# TensorRT FP16 export
-yolo export model=yolov8s-pose.pt format=engine half=True device=0
+## 🎉 开始使用
+
+```bash
+# 1. 检查环境
+python check_system.py
+
+# 2. 运行安装
+setup.bat  # Windows
+
+# 3. 激活环境
+venv\Scripts\activate
+
+# 4. 开始计数
+python demo.py --input 0 --sport squat
 ```
 
-**Tip:** [Click here](https://docs.ultralytics.com/modes/export) to learn more about yolo export 
-
-- **Step 3:** Prepare a video to be tested. [Here]() we have included sample videos for you to test
-
-## Let's Run It!
-
-To run the exercise counter, enter the following commands with the `exercise_type` as:
-
-- sit-up
-- pushup
-- squat
-
-### For video 
-
-```sh
-python3 demo.py --sport <exercise_type> --model yolov8s-pose.pt --show True --input <path_to_your_video>
-```
-
-### For webcam
-
-```sh
-python3 demo.py --sport <exercise_type> --model yolov8s-pose.pt --show True --input 0
-```
-![result 00_00_00-00_00_30](https://github.com/yuyoujiang/exercise-counting-with-YOLOv8/assets/76863444/414e1cd1-ab7d-4ca6-91e4-c8a948fe55ae)
-
-## References
-
-[https://github.com/ultralytics/](https://github.com/ultralytics/)  
-[https://wiki.seeedstudio.com](https://wiki.seeedstudio.com/YOLOv8-DeepStream-TRT-Jetson/)
+**详细文档请查看 [Guidance.md](Guidance.md)** 📖

@@ -1,0 +1,13 @@
+{
+  "days": {
+    "2025-10-08": {
+      "counts": {
+        "squat": 0,
+        "pushup": 0,
+        "situp": 0
+      },
+      "checked_in": true
+    }
+  },
+  "streak_days": 4
+}

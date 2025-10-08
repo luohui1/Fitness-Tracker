@@ -5,7 +5,7 @@ import math
 import datetime
 import argparse
 from ultralytics import YOLO
-from ultralytics.yolo.utils.plotting import Annotator, Colors
+from ultralytics.utils.plotting import Annotator, Colors
 from copy import deepcopy
 
 sport_list = {

@@ -31,7 +31,7 @@ def parse_args():
     parser.add_argument('--model_pose', default=r'../yolov8s-pose.pt', type=str, help='Path to pose model weight')
     parser.add_argument('--checkpoint', default=r'./checkpoint/', type=str, help='Path to saved checkpoint')
     parser.add_argument('--device', default='cuda:0', type=str, help='Inference device')
-    parser.add_argument('--input', default=r'C:\Users\90703\Desktop\produced.mp4', type=str, help='Path to input video')
+    parser.add_argument('--input', default='0', type=str, help='Path to input video or camera index')
     args = parser.parse_args()
     return args
 
