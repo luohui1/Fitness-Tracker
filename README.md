@@ -1,35 +1,41 @@
 # 健身检测系统 Fitness Tracker (YOLOv8)
 
-![演示](https://github.com/yuyoujiang/exercise-counting-with-YOLOv8/assets/76863444/d592ff9b-6bc2-4017-8731-cf408052f0dd)
 
-基于YOLOv8-Pose的实时运动计数应用，支持深蹲、俯卧撑、仰卧起坐等运动类型的自动识别和计数。
+基于 YOLOv8-Pose 的实时运动计数与训练打卡应用，支持深蹲、俯卧撑、仰卧起坐等运动类型的自动识别、计数与可视化统计。
 
 ## ✨ 功能特点
 
-- 🖥️ **全新GUI桌面程序** - 图形界面操作，简单直观
-- 🎯 实时姿态检测与运动计数
-- 🏋️ 支持多种运动类型（深蹲/俯卧撑/仰卧起坐）
-- 🤖 智能自动识别运动类型
-- 🎥 支持摄像头和视频文件输入
-- 🚀 可选GPU加速支持
-- 💾 实时预览和结果保存功能
+- 🖥️ **GUI 桌面程序**：控制/设置双标签页，操作直观
+- 🎯 实时姿态检测与计数（YOLOv8-Pose）
+- 🏋️ 支持多运动类型（深蹲/俯卧撑/仰卧起坐）
+- 🤖 自动识别运动类型（LSTM），可手动/自动切换
+- ⚙️ 可调参数：进入/退出阈值、侧别（avg/left/right）、去抖帧数
+- ⏯ 暂停/继续、快捷键（Space/S/Q/R）
+- 📊 训练统计：今日/目标进度条、总计、今日最佳
+- 📅 打卡与日历（tkcalendar），支持连续打卡天数
+- 💾 配置与历史持久化（config/thresholds.json、config/history.json）
+- 🚀 GPU 半精度推理（自动启用，CPU 自动降分辨率）
 
 ## 🚀 快速开始
 
-### 方式一：GUI桌面程序（推荐）⭐
+### 方式一：GUI 桌面程序（推荐）⭐
 
-1. **环境检查**
+1) **一键安装（Windows）**
+```bat
+setup.bat
+```
+
+或（PowerShell）：
+```powershell
+./setup.ps1
+```
+
+2) **环境检查（可选）**
 ```bash
 python check_system.py
 ```
 
-2. **自动安装**
-```bash
-setup.bat          # Windows
-./setup.sh         # Linux/macOS
-```
-
-3. **启动桌面程序**
+3) **启动桌面程序**
 ```bash
 # 激活虚拟环境
 venv\Scripts\activate          # Windows
@@ -89,9 +95,9 @@ python demo_pro.py --input video.mp4 --save_dir ./results
 
 ## 📚 文档
 
-- **快速上手**: 参考上方"快速开始"部分
+- **快速上手**: 参考上方“快速开始”
 - **详细指南**: 查看 [Guidance.md](Guidance.md)
-- **自动化脚本**: `setup.bat` / `setup.sh` / `check_system.py`
+- **自动化脚本**: `setup.bat` / `setup.ps1` / `check_system.py`
 
 ## 🔧 主要参数
 
@@ -118,8 +124,8 @@ python demo_pro.py --input video.mp4 --save_dir ./results
 ├── demo.py                   # 命令行基础版
 ├── demo_pro.py               # 命令行完整版
 ├── check_system.py           # 系统检查脚本
-├── setup.bat                 # Windows安装脚本
-├── setup.sh                  # Linux/macOS安装脚本
+├── setup.bat                 # Windows 安装脚本（推荐）
+├── setup.ps1                 # PowerShell 安装脚本
 ├── requirements.txt          # 依赖列表
 ├── Guidance.md               # 详细指导文档
 └── for_detect/               # 运动检测模块
@@ -127,6 +133,13 @@ python demo_pro.py --input video.mp4 --save_dir ./results
     ├── Inference.py          # 推理脚本
     └── checkpoint/           # 模型文件
 ```
+
+## ⌨️ 快捷键
+
+- Space：暂停/继续
+- S：停止
+- R：清空统计
+- Q：退出程序
 
 ## ❓ 常见问题
 
@@ -146,12 +159,15 @@ pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
 
 ## 📄 许可证
 
-本项目采用 MIT 许可证
+本项目采用 Apache-2.0 许可证。分发时请附带 `LICENSE` 与 `NOTICE`，并保留版权与修改说明。
 
-## 🙏 参考项目
+## 🙏 参考项目 / Credits
 
 - [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics)
 - [Seeed Studio Wiki](https://wiki.seeedstudio.com/YOLOv8-DeepStream-TRT-Jetson/)
+- 基础代码来源（Apache-2.0）并在此基础上改造：
+  - Exercise-Counter-with-YOLOv8-on-NVIDIA-Jetson
+    https://github.com/yuyoujiang/Exercise-Counter-with-YOLOv8-on-NVIDIA-Jetson
 
 ## 🎉 开始使用
 

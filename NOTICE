@@ -1,0 +1,19 @@
+Fitness Tracker (YOLOv8-based)
+Copyright (c) 2025 luohui1
+
+This project includes modified code from the following open-source projects:
+
+1) Exercise-Counter-with-YOLOv8-on-NVIDIA-Jetson (Apache-2.0)
+   https://github.com/yuyoujiang/Exercise-Counter-with-YOLOv8-on-NVIDIA-Jetson
+
+Modifications made in this repository include (but are not limited to):
+- GUI desktop application (Tkinter) with control/settings tabs
+- Chinese text rendering via PIL, pause/continue/stop, keyboard shortcuts
+- Threshold hysteresis, debouncing, side selection (avg/left/right)
+- Fitness statistics dashboard, daily goals, streaks, calendar view
+- Config/history persistence (config/thresholds.json, config/history.json)
+- Setup scripts (setup.bat/setup.ps1) and system check (check_system.py)
+- Performance optimizations (YOLOv8n-pose default, device/half/imgsz)
+
+Third-party components remain licensed under their respective licenses.
+
